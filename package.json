@@ -1,0 +1,35 @@
+{
+  "name": "mycontacts-backend-api",
+  "version": "1.0.0",
+  "description": "This is express project for my contacts backend api",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "Jayesh Tak",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "chai": "^4.3.10",
+    "chai-http": "^4.3.0",
+    "csv": "^6.3.3",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "fs": "^0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "mariadb": "^3.2.1",
+    "mocha": "^10.2.0",
+    "mongoose": "^6.6.5",
+    "mysql2": "^3.6.1",
+    "save-dev": "^0.0.1-security",
+    "sequelize": "^6.11.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.3"
+  }
+}
