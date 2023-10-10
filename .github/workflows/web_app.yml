@@ -7,15 +7,15 @@ jobs:
   build:
     name: Web_App_Test
     runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:latest
-        env:
-          MYSQL_ROOT_PASSWORD: 'admin'
-          MYSQL_DATABASE: 'healthcheckdb'
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    # services:
+    #   mysql:
+    #     image: mysql:latest
+    #     env:
+    #       MYSQL_ROOT_PASSWORD: 'admin'
+    #       MYSQL_DATABASE: 'healthcheckdb'
+    #     ports:
+    #       - 3306:3306
+    #     options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     env:
       MYSQL_HOST: localhost
       MYSQL_USER: root
