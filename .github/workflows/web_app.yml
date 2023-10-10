@@ -5,7 +5,7 @@ on:
       - main # Change this to your main branch name if it's different
 jobs:
   build:
-    name: Web_App_Test
+    name: Web_App_CI
     runs-on: ubuntu-latest
     services:
       mysql:
