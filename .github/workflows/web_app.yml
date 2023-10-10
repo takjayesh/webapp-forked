@@ -1,11 +1,11 @@
 name: web_app
 on:
   pull_request:
-    branches:
-      - main # Change this to your main branch name if it's different
+    branches: [ main ] # Change this to your main branch name if it's different
+    
 jobs:
   build:
-    name: Web_App_CI
+    name: Web_App_Test
     runs-on: ubuntu-latest
     services:
       mysql:
