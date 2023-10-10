@@ -2,7 +2,7 @@ name: web_app
 on:
   pull_request:
     branches:
-      - main # Change this to your main branch name if it's different
+      - main # Change this to  main branch name if it's different
 jobs:
   build:
     name: Web_App_CI
