@@ -95,7 +95,7 @@ source "amazon-ebs" "my-ami" {
   profile         = "${var.profile}"
   ami_name        = "${var.ami_name_prefix}_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
   ami_description = "${var.custom_ami_description}"
-  ami_regions     = "${var.ami_accessible_regions}" 
+  ami_regions     = "${var.ami_accessible_regions}"
   ami_users       = "${var.ami_accessible_users}"
   instance_type   = "${var.instance_type}"
   source_ami      = "${var.source_ami}"
