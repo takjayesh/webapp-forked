@@ -30,8 +30,8 @@ jobs:
           echo file_source=\"${{ vars.FILE_SOURCE }}\" >> ./packer/variables.pkrvars.hcl
           echo file_destination=\"${{ vars.FILE_DESTINATION }}\" >> ./packer/variables.pkrvars.hcl
           echo shell_script_location=\"${{ vars.SHELL_SCRIPT_LOCATION }}\" >> ./packer/variables.pkrvars.hcl
-          echo default_vpc_id=\"${{ secrets.DEFAULT_VPC_ID }}\" >> ./packer/variables.pkrvars.hcl
-          echo ami_accessible_users=\"${{ secrets.AMI_ACCESSIBLE_USERS }}\" >> ./packer/variables.pkrvars.hcl
+          echo default_vpc_id=\"${{ vars.DEFAULT_VPC_ID }}\" >> ./packer/variables.pkrvars.hcl
+          echo ami_accessible_users=\"${{ vars.AMI_ACCESSIBLE_USERS }}\" >> ./packer/variables.pkrvars.hcl
 
           cat ./packer/variables.pkrvars.hcl
 
