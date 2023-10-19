@@ -76,7 +76,7 @@ jobs:
           echo ssh_username=\"${{ vars.SSH_USERNAME }}\" >> ./packer/variables.pkrvars.hcl
           echo custom_instance_type=\"${{ vars.CUSTOM_INSTANCE_TYPE }}\" >> ./packer/variables.pkrvars.hcl
           echo aws_region=\"${{ vars.AWS_REGION }}\" >> ./packer/variables.pkrvars.hcl
-          echo ami_accessible_regions=\${{ vars.AMI_ACCESSIBLE_REGIONS }}\ >> ./packer/variables.pkrvars.hcl
+          echo ami_accessible_regions=\"${{ vars.AMI_ACCESSIBLE_REGIONS }}\" >> ./packer/variables.pkrvars.hcl
           echo device_name=\"${{ vars.DEVICE_NAME }}\" >> ./packer/variables.pkrvars.hcl  
           echo volume_size=\"${{ vars.VOLUME_SIZE }}\" >> ./packer/variables.pkrvars.hcl
           echo volume_type=\"${{ vars.VOLUME_TYPE }}\" >> ./packer/variables.pkrvars.hcl
