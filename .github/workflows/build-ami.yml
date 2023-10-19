@@ -2,13 +2,13 @@ name: Build AMI
 
 on:
   pull_request:
-    branches: 
+    branches:
       - main
-  #  types: [closed]
+    types: [closed]
 
 jobs:
   build-ami:
-    # if: ${{ github.event.pull_request.merged }}
+    if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
 
     steps:
@@ -24,13 +24,6 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_DIALECT: ${{ secrets.DB_DIALECT }}
           DB_NAME: ${{ secrets.DB_NAME }}
-
-      #MYSQL_HOST: localhost
-      # MYSQL_USER: ${{ secrets.MYSQL_USER }}
-      # MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-      # MYSQL_DATABASE: healthcheckdb
-      # MYSQL_DIALECT: mysql
-
         run: |
           echo "PORT=$PORT" >> .env
           echo "DB_HOST=$DB_HOST" >> .env
@@ -39,17 +32,9 @@ jobs:
           echo "DB_PASSWORD=$DB_PASSWORD" >> .env
           echo "DB_DIALECT=$DB_DIALECT" >> .env
           echo "DB_NAME=$DB_NAME" >> .env
-        
+
       - name: Compress webapp
         run: zip -r webapp.zip .
-
-      # - name: Check MySQL Running Status
-      #   run: |
-      #     sudo /etc/init.d/mysql start
-      #     mysql -h 127.0.0.1 --port 3306 -u root -p'${{ secrets.ROOT_DB_PASS }}' -e "CREATE USER '${{ secrets.DB_USER }}'@'localhost' IDENTIFIED BY '${{ secrets.DB_PASSWORD }}';"  
-      #     mysql -h 127.0.0.1 --port 3306 -u root -p'${{ secrets.ROOT_DB_PASS }}' -e "GRANT ALL ON *.* TO '${{ secrets.DB_USER }}'@'localhost';"
-      #     mysql -h 127.0.0.1 --port 3306 -u root -p'${{ secrets.ROOT_DB_PASS }}' -e "FLUSH PRIVILEGES;"
-      #     mysql -h 127.0.0.1 --port 3306 -u root -p'${{ secrets.ROOT_DB_PASS }}' -e "CREATE DATABASE ${{ secrets.DB_NAME }};"
 
       - name: Set up Node
         uses: actions/setup-node@v3
