@@ -44,7 +44,7 @@ variable "ami_accessible_regions" {
 
 variable "ami_accessible_users" {
   type    = list(string)
-  default = ["390105516587","048434227312"] ## add users
+  default = ["390105516587", "048434227312"] ## add users
 }
 
 
@@ -126,7 +126,7 @@ build {
   }
 
   provisioner "shell" {
-    scripts       = ["${var.shell_script_location}"]
+    scripts      = ["${var.shell_script_location}"]
     pause_before = "10s"
     timeout      = "10s"
   }
