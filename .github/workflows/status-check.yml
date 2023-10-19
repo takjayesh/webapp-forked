@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      
+      - name: Compress webapp
+        run: zip -r webapp.zip .
 
       - name: Install Packer
         run: |
