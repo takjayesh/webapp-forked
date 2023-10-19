@@ -5,9 +5,15 @@ const db = require("../models");
 const router = express.Router();
 
 router.get('/', asyncHandler(async (req, res) => {
-    await db.sequelize.authenticate();   // Simple query to check the connection
-    res.status(200).set('Cache-Control', 'no-cache, no-store, must-revalidate').send('Database connection successful');
+    try {
+        await db.sequelize.authenticate(); // Attempt to connect to the database
+        res.status(200).set('Cache-Control', 'no-cache, no-store, must-revalidate').send('Database connection successful');
+    } catch (error) {
+        console.error('Database connection error:', error);
+        res.status(503).send('Service Unavailable');
+    }
 }));
+
 
 // Error handling middleware
 router.use((err, req, res, next) => {

@@ -1,6 +1,2 @@
-# CSYE 6225 -->Assignment 3
-
-Test8
-Tests regarding CI/CD
-
-test for the Demo
+# Express_Rest_API_Assignment
+This is express &amp; mongodb rest api Assignment for contact management app

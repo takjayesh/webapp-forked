@@ -1,25 +1,25 @@
 name: web_app
 on:
   pull_request:
-    branches: [ main ] # Change this to your main branch name if it's different
-    
+    branches:
+      - main # Change this to  main branch name if it's different
 jobs:
   build:
-    name: Web_App_Test
+    name: Web_App_CI
     runs-on: ubuntu-latest
     services:
       mysql:
         image: mysql:latest
         env:
-          MYSQL_ROOT_PASSWORD: 'admin'
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
           MYSQL_DATABASE: 'healthcheckdb'
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     env:
       MYSQL_HOST: localhost
-      MYSQL_USER: root
-      MYSQL_PASSWORD: admin
+      MYSQL_USER: ${{ secrets.MYSQL_USER }}
+      MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
       MYSQL_DATABASE: healthcheckdb
       MYSQL_DIALECT: mysql
 
@@ -37,3 +37,4 @@ jobs:
         run: npm install nodemon
       - name: Run Integration Tests
         run: npm test  
+
