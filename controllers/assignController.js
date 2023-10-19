@@ -68,11 +68,11 @@ const deleteAssignmentById = asyncHandler(async (req, res) => {
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was deleted successfully!"
+          message: "Assignment was deleted successfully!"
         });
       } else {
         res.send({
-          message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+          message: `Cannot delete Assignment with id=${id}. Maybe Assignment was not found!`
         });
       }
 })
@@ -94,7 +94,7 @@ const updateAssignment = asyncHandler(async (req, res) => {
         });
       } else {
         res.status(400).send({
-          message: `Cannot update Assignment with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+          message: `Cannot update Assignment with id=${id}. Maybe Assignment was not found or req.body is empty!`
         });
       }
     })

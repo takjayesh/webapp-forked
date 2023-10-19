@@ -1,0 +1,54 @@
+name: 2nd Packer Check Validation
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  packer-status-check:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set Variables for Packer
+        run: |
+          touch ./packer/variables.pkrvars.hcl
+          echo aws_region=\"${{ vars.AWS_REGION }}\" >> ./packer/variables.pkrvars.hcl
+          echo source_ami=\"${{ vars.SOURCE_AMI }}\" >> ./packer/variables.pkrvars.hcl
+          echo ssh_username=\"${{ vars.SSH_USERNAME }}\" >> ./packer/variables.pkrvars.hcl
+          echo ami_name_prefix=\"${{ vars.AMI_NAME_PREFIX }}\" >> ./packer/variables.pkrvars.hcl
+          echo instance_type=\"${{ vars.INSTANCE_TYPE }}\" >> ./packer/variables.pkrvars.hcl
+          echo custom_ami_description=\"${{ vars.CUSTOM_AMI_DESCRIPTION }}\" >> ./packer/variables.pkrvars.hcl
+          echo ami_accessible_regions=\"${{ vars.AMI_ACCESSIBLE_REGIONS }}\" >> ./packer/variables.pkrvars.hcl
+          echo device_name=\"${{ vars.DEVICE_NAME }}\" >> ./packer/variables.pkrvars.hcl
+          echo volume_size=\"${{ vars.VOLUME_SIZE }}\" >> ./packer/variables.pkrvars.hcl
+          echo volume_type=\"${{ vars.VOLUME_TYPE }}\" >> ./packer/variables.pkrvars.hcl
+          echo profile=\"${{ vars.PROFILE }}\" >> ./packer/variables.pkrvars.hcl
+          echo file_source=\"${{ vars.FILE_SOURCE }}\" >> ./packer/variables.pkrvars.hcl
+          echo file_destination=\"${{ vars.FILE_DESTINATION }}\" >> ./packer/variables.pkrvars.hcl
+          echo shell_script_location=\"${{ vars.SHELL_SCRIPT_LOCATION }}\" >> ./packer/variables.pkrvars.hcl
+          echo default_vpc_id=\"${{ secrets.DEFAULT_VPC_ID }}\" >> ./packer/variables.pkrvars.hcl
+          echo ami_accessible_users=\"${{ secrets.AMI_ACCESSIBLE_USERS }}\" >> ./packer/variables.pkrvars.hcl
+
+          cat ./packer/variables.pkrvars.hcl
+
+      - name: Install Packer
+        run: |
+          packer init ./packer/aws-debian.pkr.hcl
+
+      - name: Packer Format
+        run: |
+         if ! packer fmt -check ./packer/aws-debian.pkr.hcl; then
+           echo "Packer format check failed"
+           exit 1
+         fi
+
+      - name: Packer Validate 
+        run: |
+           if ! packer validate -evaluate-datasources --var-file=./packer/variables.pkrvars.hcl ./packer/aws-debian.pkr.hcl; then
+             echo "Packer validate failed"
+             exit 1
+           fi
