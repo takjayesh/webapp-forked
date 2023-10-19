@@ -87,7 +87,7 @@ jobs:
           echo root_device_type=\"${{ vars.ROOT_DEVICE_TYPE }}\" >> ./packer/variables.pkrvars.hcl
           echo virtualization_type=\"${{ vars.VIRTUALIZATION_TYPE }}\" >> ./packer/variables.pkrvars.hcl
           echo default_vpc_id=\"${{ secrets.DEFAULT_VPC_ID }}\" >> ./packer/variables.pkrvars.hcl
-          echo ami_accessible_users=\"${{ secrets.AMI_ACCESSIBLE_USERS }}\" >> ./packer/variables.pkrvars.hcl
+          echo ami_accessible_users=\"${{ vars.AMI_ACCESSIBLE_USERS }}\" >> ./packer/variables.pkrvars.hcl
           cat ./packer/variables.pkrvars.hcl
         
       - name: Install Packer
