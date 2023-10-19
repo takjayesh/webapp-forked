@@ -79,4 +79,4 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_EC2}}
           AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_EC2}}
         run: |
-          packer build --var-file=./packer/variables.pkrvars.hcl ./packer/aws-debian.pkr.hcl
+          packer build  ./packer/aws-debian.pkr.hcl
