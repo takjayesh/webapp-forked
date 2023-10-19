@@ -44,7 +44,7 @@ variable "ami_accessible_regions" {
 
 variable "ami_accessible_users" {
   type    = list(string)
-  default = ["390105516587", "048434227312"] ## add users
+  default = ["390105516587","048434227312"] ## add users
 }
 
 
