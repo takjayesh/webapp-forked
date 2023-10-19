@@ -41,10 +41,12 @@ jobs:
 
       - name: Packer Format
         run: |
-         if ! packer fmt -check ./packer/aws-debian.pkr.hcl; then
-           echo "Packer format check failed"
-           exit 1
-         fi
+          output=$(packer fmt -check ./packer/aws-debian.pkr.hcl)
+          if [ $? -ne 0 ]; then
+              echo "Packer format check failed:"
+              echo "$output"
+              exit 1
+          fi
 
       - name: Packer Validate 
         run: |
