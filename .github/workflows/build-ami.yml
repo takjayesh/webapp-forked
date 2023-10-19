@@ -4,11 +4,11 @@ on:
   pull_request:
     branches: 
       - main
-    types: [closed]
+  #  types: [closed]
 
 jobs:
   build-ami:
-    if: ${{ github.event.pull_request.merged }}
+    # if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
 
     steps:
@@ -67,38 +67,16 @@ jobs:
 
       - name: Run Integration Tests
         run: npm test
-
-      - name: Set Variables for Packer
-        run: |
-          touch ./packer/variables.pkrvars.hcl
-          echo profile=\"${{ vars.PROFILE }}\" >> ./packer/variables.pkrvars.hcl
-          echo custom_ami_description=\"${{ vars.CUSTOM_AMI_DESCRIPTION }}\" >> ./packer/variables.pkrvars.hcl
-          echo ssh_username=\"${{ vars.SSH_USERNAME }}\" >> ./packer/variables.pkrvars.hcl
-          echo custom_instance_type=\"${{ vars.CUSTOM_INSTANCE_TYPE }}\" >> ./packer/variables.pkrvars.hcl
-          echo aws_region=\"${{ vars.AWS_REGION }}\" >> ./packer/variables.pkrvars.hcl
-          echo ami_accessible_regions=\"${{ vars.AMI_ACCESSIBLE_REGIONS }}\" >> ./packer/variables.pkrvars.hcl
-          echo device_name=\"${{ vars.DEVICE_NAME }}\" >> ./packer/variables.pkrvars.hcl  
-          echo volume_size=\"${{ vars.VOLUME_SIZE }}\" >> ./packer/variables.pkrvars.hcl
-          echo volume_type=\"${{ vars.VOLUME_TYPE }}\" >> ./packer/variables.pkrvars.hcl
-          echo file_source=\"${{ vars.FILE_SOURCE }}\" >> ./packer/variables.pkrvars.hcl
-          echo file_destination=\"${{ vars.FILE_DESTINATION }}\" >> ./packer/variables.pkrvars.hcl
-          echo shell_script_location=\"${{ vars.SHELL_SCRIPT_LOCATION }}\" >> ./packer/variables.pkrvars.hcl
-          echo source_ami=\"${{ vars.SOURCE_AMI }}\" >> ./packer/variables.pkrvars.hcl
-          echo root_device_type=\"${{ vars.ROOT_DEVICE_TYPE }}\" >> ./packer/variables.pkrvars.hcl
-          echo virtualization_type=\"${{ vars.VIRTUALIZATION_TYPE }}\" >> ./packer/variables.pkrvars.hcl
-          echo default_vpc_id=\"${{ secrets.DEFAULT_VPC_ID }}\" >> ./packer/variables.pkrvars.hcl
-          echo ami_accessible_users=\"${{ secrets.AMI_ACCESSIBLE_USERS }}\" >> ./packer/variables.pkrvars.hcl
-          cat ./packer/variables.pkrvars.hcl
         
       - name: Install Packer
         run: |  
           pwd
           ls -la
-          packer init ./packer/ami.pkr.hcl 
+          packer init ./packer/aws-debian.pkr.hcl
         
       - name: Build AMI
         env:
           AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_EC2}}
           AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_EC2}}
         run: |
-          packer build --var-file=./packer/variables.pkrvars.hcl ./packer/ami.pkr.hcl
+          packer build  ./packer/aws-debian.pkr.hcl
