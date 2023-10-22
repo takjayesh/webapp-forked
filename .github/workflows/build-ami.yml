@@ -4,64 +4,63 @@ on:
   pull_request:
     branches:
       - main
-  #  types: [closed]
+    types: [closed]
 
 jobs:
   build-ami:
-    # if: ${{ github.event.pull_request.merged }}
+    if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set Variables for Database
-        env:
-          PORT: ${{ secrets.PORT }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_DIALECT: ${{ secrets.DB_DIALECT }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-        run: |
-          echo "PORT=$PORT" >> .env
-          echo "DB_HOST=$DB_HOST" >> .env
-          echo "DB_PORT=$DB_PORT" >> .env
-          echo "DB_USER=$DB_USER" >> .env
-          echo "DB_PASSWORD=$DB_PASSWORD" >> .env
-          echo "DB_DIALECT=$DB_DIALECT" >> .env
-          echo "DB_NAME=$DB_NAME" >> .env
+    - name: Set Variables for Database
+      env:
+        PORT: ${{ secrets.PORT }}
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_PORT: ${{ secrets.DB_PORT }}
+        DB_USER: ${{ secrets.DB_USER }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_DIALECT: ${{ secrets.DB_DIALECT }}
+        DB_NAME: ${{ secrets.DB_NAME }}
+      run: |
+        echo "PORT=$PORT" >> .env
+        echo "DB_HOST=$DB_HOST" >> .env
+        echo "DB_PORT=$DB_PORT" >> .env
+        echo "DB_USER=$DB_USER" >> .env
+        echo "DB_PASSWORD=$DB_PASSWORD" >> .env
+        echo "DB_DIALECT=$DB_DIALECT" >> .env
+        echo "DB_NAME=$DB_NAME" >> .env
 
-      - name: Compress webapp
-        run: zip -r webapp.zip .
+    - name: Compress webapp
+      run: zip -r webapp.zip .
 
-      - name: Set up Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
+    - name: Set up Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
 
-      - name: Check Versions and Install Dependencies
-        run: |
-          pwd
-          ls -al
-          node -v
-          npm -v
-          npm install
-          ls -al
+    - name: Check Versions and Install Dependencies
+      run: |
+        pwd
+        ls -al
+        node -v
+        npm -v
+        npm install
+        ls -al
 
-      - name: Run Integration Tests
-        run: npm test
-        
-      - name: Install Packer
-        run: |  
-          pwd
-          ls -la
-          packer init ./packer/aws-debian.pkr.hcl
-        
-      - name: Build AMI
-        env:
-          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_EC2}}
-          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_EC2}}
-        run: |
-          packer build  ./packer/aws-debian.pkr.hcl
+    - name: Run Integration Tests
+      run: npm test
+
+    - name: Install Packer
+      run: |  
+        pwd
+        ls -la
+        packer init ./packer/aws-debian.pkr.hcl
+
+    - name: Build AMI
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_EC2 }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_EC2 }}
+      run: packer build ./packer/aws-debian.pkr.hcl
