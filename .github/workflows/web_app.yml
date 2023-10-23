@@ -19,7 +19,7 @@ jobs:
     env:
       MYSQL_HOST: ${{ secrets.DB_HOST }}
       MYSQL_USER: ${{ secrets.MYSQL_USER }}
-      MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+      MYSQL_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
       MYSQL_DATABASE: ${{ secrets.DB_NAME }}
       MYSQL_DIALECT: mysql
 
