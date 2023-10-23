@@ -32,7 +32,7 @@ variable "instance_type" {
   default = "t2.micro"
 }
 
-  variable "custom_ami_description" {
+variable "custom_ami_description" {
   type    = string
   default = "Custom AMI for CSYE 6225"
 }
