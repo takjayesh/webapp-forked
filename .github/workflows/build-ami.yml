@@ -2,7 +2,9 @@ name: Build AMI
 
 on:
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
+    types: [closed]
 
 jobs:
   build-ami:
