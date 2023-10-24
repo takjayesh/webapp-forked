@@ -2,10 +2,21 @@ const express = require("express");
 const errorHandler = require("./middleware/errorHandler");
 const dotenv = require("dotenv").config();
 const app = express();
-//const connectDb = require('./config/dbConnection');
 const db = require("./models");
 const createUser = require("./opt/createuser");
 const authorization = require("./middleware/authorization");
+
+// Middleware to check the database connection
+app.use(async (req, res, next) => {
+  try {
+      await db.databaseCheck();
+      next();
+  } catch (error) {
+      console.error('Unable to ensure the database:', error);
+      res.status(500).send('Error ensuring the database.');
+  }
+});
+
 
 db.sequelize.sync({force:false})
   .then(() => {

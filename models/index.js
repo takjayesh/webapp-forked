@@ -19,13 +19,20 @@ db.User = require("./userModel.js")(sequelize, Sequelize);
 
 db.User.hasMany(db.Assignment);
 
+//Adding new code for database connection
 
-sequelize.authenticate()
-    .then(() => {
-        console.log('Database connection has been established successfully.');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });
-    
+// Database check function
+db.databaseCheck = async function() {
+    try {
+        await sequelize.authenticate();
+        await sequelize.query(`CREATE DATABASE IF NOT EXISTS ${process.env.MYSQL_DATABASE}`);
+        console.log("Database ensured");
+    } catch (err) {
+        console.log(err);
+    } finally {
+        await sequelize.close();
+    }
+};
+
+
 module.exports = db;

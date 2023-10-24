@@ -12,15 +12,15 @@ jobs:
         image: mysql:latest
         env:
           MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-          MYSQL_DATABASE: 'healthcheckdb'
+          MYSQL_DATABASE: ${{ secrets.DB_NAME }}
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     env:
-      MYSQL_HOST: localhost
+      MYSQL_HOST: ${{ secrets.DB_HOST }}
       MYSQL_USER: ${{ secrets.MYSQL_USER }}
-      MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-      MYSQL_DATABASE: healthcheckdb
+      MYSQL_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+      MYSQL_DATABASE: ${{ secrets.DB_NAME }}
       MYSQL_DIALECT: mysql
 
     steps:
@@ -37,4 +37,14 @@ jobs:
         run: npm install nodemon
       - name: Run Integration Tests
         run: npm test  
-
+      - name: create Artifact
+        run: zip -r webapp-artifact.zip . -x ".git"
+      - name: Create .env file
+        run: |
+          echo MYSQL_HOST="127.0.0.1" >> .env
+          echo MYSQL_USER=${{ secrets.MYSQL_USER }} >> .env
+          echo MY_SQL_DATABASE=${{ secrets.DB_NAME }} >> .env
+          echo MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} >> .env
+          echo DB_PORT= ${{ secrets.DB_PORT }} >> .env
+          echo "ls -al"
+      
