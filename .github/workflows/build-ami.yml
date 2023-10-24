@@ -66,6 +66,12 @@ jobs:
       run: |  
         sudo apt-get install packer
 
+    - name: Packer Install
+      run: |
+        cd packer
+        packer init .    
+
+
     - name: Build AMI
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_EC2 }}
