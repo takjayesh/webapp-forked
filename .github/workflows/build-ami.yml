@@ -10,6 +10,15 @@ jobs:
   build-ami:
     if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.DB_NAME }}
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
     - name: Checkout code
@@ -55,9 +64,7 @@ jobs:
 
     - name: Install Packer
       run: |  
-        pwd
-        ls -la
-        packer init ./packer/aws-debian.pkr.hcl
+        sudo apt-get install packer
 
     - name: Build AMI
       env:
