@@ -29,8 +29,6 @@ db.databaseCheck = async function() {
         console.log("Database ensured");
     } catch (err) {
         console.log(err);
-    } finally {
-        await sequelize.close();
     }
 };
 
