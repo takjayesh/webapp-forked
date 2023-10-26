@@ -21,8 +21,8 @@ const authorization = asyncHandler(async (req, res, next) => {
         // Find the user by username
         const user = await User.findOne({ where: { username: username } });
         if (!user) {
-            //   return res.status(401).json({ error: 'User not found' });
-            return 'Not User';
+            return res.status(401).json({ error: 'User not found' });
+            //return 'Not User';
         }
         // Compare the hashed password
         const passwordMatch = await bcrypt.compare(password, user.password);

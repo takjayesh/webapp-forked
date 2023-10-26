@@ -37,7 +37,6 @@ const getAssign = asyncHandler(async (req, res) => {
 
 const getAssignmentsById = asyncHandler(async (req, res) => {
   try {
-   // console.log("getbyId");
    console.log("I am in get call");
       const id = req.params.id; // Extract user ID from route parameter
       const assignments = await Assignment.findAll({
@@ -67,11 +66,11 @@ const deleteAssignmentById = asyncHandler(async (req, res) => {
   })
     .then(num => {
       if (num == 1) {
-        res.send({
+        res.status(204).send({
           message: "Assignment was deleted successfully!"
         });
       } else {
-        res.send({
+        res.status(404).send({
           message: `Cannot delete Assignment with id=${id}. Maybe Assignment was not found!`
         });
       }
