@@ -23,7 +23,7 @@ source_path="/opt/csye6225/webapp/opt/users.csv"
 destination_path="/opt/"
  
 # Move the file if it exists
-[ -e "$source_path" ] && sudo mv "$source_path" "$destination_path" && echo "File 'users.csv' moved to '$destination_path'"
+[ -e "$source_path" ] && sudo cp "$source_path" "$destination_path" && echo "File 'users.csv' moved to '$destination_path'"
  
 sudo mv /opt/csye6225/webapp/webapp.service /etc/systemd/system/webapp.service
 
