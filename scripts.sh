@@ -12,12 +12,12 @@ sudo mkdir /opt/csye6225/webapp
 sudo mv /home/admin/webapp.zip /opt/csye6225/webapp/
 cd /opt/csye6225/webapp/
 sudo unzip webapp.zip
-sudo apt install mysql-client -y
-sudo apt install mariadb-server -y
+# sudo apt install mysql-client -y
+# sudo apt install mariadb-server -y
 # sudo npm audit fix
 sudo apt-get install nodejs -y
 sudo apt-get install npm -y
-npm install
+sudo npm install
  
 source_path="/opt/csye6225/webapp/opt/users.csv"
 destination_path="/opt/"
