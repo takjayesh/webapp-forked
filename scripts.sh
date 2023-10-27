@@ -5,16 +5,19 @@ sudo apt-get update
 
 sudo apt install unzip -y
 
+# sudo apt install mysql-client -y
 sudo groupadd csye6225
 sudo useradd -s /bin/false -g csye6225 -d /opt/csye6225 -m csye6225
 sudo mkdir /opt/csye6225/webapp
 sudo mv /home/admin/webapp.zip /opt/csye6225/webapp/
 cd /opt/csye6225/webapp/
 sudo unzip webapp.zip
-sudo npm audit fix
+sudo apt install mysql-client -y
+sudo apt install mariadb-server -y
+# sudo npm audit fix
 sudo apt-get install nodejs -y
 sudo apt-get install npm -y
-cd ~/webapp && npm i
+npm install
  
 source_path="/opt/csye6225/webapp/opt/users.csv"
 destination_path="/opt/"
@@ -29,6 +32,7 @@ sudo chmod -R 750 /opt/csye6225/webapp/
 sudo systemctl daemon-reload
 sudo systemctl enable webapp
 sudo systemctl start webapp
+
 
 
 ########################################################################################################
