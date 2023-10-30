@@ -5,6 +5,7 @@ This project is a Node.js application using the Express framework. It serves as 
 git clone
 npm install
 npm start
+test
 
 
 you can use the following API endpoints for CRUD operations:
