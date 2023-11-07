@@ -119,8 +119,6 @@ build {
   sources = ["source.amazon-ebs.my-ami"]
 
   provisioner "file" {
-    #source      = "webapp.zip"
-    # destination = "~/dest" # Assuming variable ssh_username is used
     source      = "${var.file_source}"
     destination = "${var.file_destination}"
   }
@@ -130,5 +128,13 @@ build {
     pause_before = "10s"
     timeout      = "10s"
   }
+
+  provisioner "shell" {
+  inline = [
+    
+  ]
+  pause_before = "10s"
+  timeout      = "10m"
+}
 
 }

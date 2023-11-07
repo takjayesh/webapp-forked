@@ -31,6 +31,7 @@ const port =  5000;
 
 app.use(express.json());
 app.use("/healthz", require("./routes/healthzRoutes"));
+
 app.use(authorization)
 
 app.use("/api/users", require("./routes/userRoutes"));

@@ -10,7 +10,9 @@ const authorization = asyncHandler(async (req, res, next) => {
     console.log(req.headers);
     const authHeader = req.headers['authorization'];
     if (!authHeader) {
+        res.set('WWW-Authenticate','Basic realm="Secure Area"');
         return res.status(401).json({ error: 'Authorization header missing' });
+
     }
 
     const token = authHeader.split(' ')[1];
