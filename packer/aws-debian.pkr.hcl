@@ -129,12 +129,5 @@ build {
     timeout      = "10s"
   }
 
-  provisioner "shell" {
-    inline = [
-
-    ]
-    pause_before = "10s"
-    timeout      = "10m"
-  }
 
 }
