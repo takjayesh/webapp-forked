@@ -1,0 +1,4 @@
+info: This is an informational message. {"timestamp":"2023-11-08T22:25:04.142Z"}
+error: This is an error message. {"timestamp":"2023-11-08T22:25:04.149Z"}
+info: Get assignments request received {"timestamp":"2023-11-08T22:25:23.545Z"}
+info: Assignments retrieved successfully {"timestamp":"2023-11-08T22:25:23.550Z"}
