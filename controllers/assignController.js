@@ -33,19 +33,24 @@ const createAssign = asyncHandler(async (req, res) => {
           deadline,
           UserId: req.userId
       });
+      logger.log('info', 'Assignment created successfully');
       res.status(201).send(assignObj);
   } catch (error) {
+      logger.log('error', 'Error creating assignment', { error: error.message });
       res.status(400).json(error.message);
   }
 });
 
 
 const getAssign = asyncHandler(async (req, res) => {
-    const assignObjs =  Assignment.findAll({
+  logger.log('info', 'Get assignments request received');  
+  const assignObjs =  Assignment.findAll({
       
   }).then(data => {
+    logger.log('info', 'Assignments retrieved successfully');
     res.status(200).send(data);
   }).catch((error) => {
+    logger.log('error', 'Error retrieving assignments', { error: error.message });
     res.status(400).json(error.message);
   });
   
@@ -64,15 +69,18 @@ const getAssignmentsById = asyncHandler(async (req, res) => {
           res.status(404).json({ message: 'No assignments found for this user.' });
           return;
       }
-      console.log(assignments);
+     // console.log(assignments);
+      logger.log('info', 'Assignment retrieved successfully');
       res.status(200).json(assignments);
   } catch (error) {
+      logger.log('error', 'Error retrieving assignment by ID', { error: error.message });
       res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
 
 const deleteAssignmentById = asyncHandler(async (req, res) => {
+  logger.log('info', 'Delete assignment request received', { id: req.params.id });
   const id = req.params.id;
   console.log("In the Delete API");
   Assignment.destroy({
@@ -82,10 +90,12 @@ const deleteAssignmentById = asyncHandler(async (req, res) => {
   })
     .then(num => {
       if (num == 1) {
+        logger.log('info', 'Assignment deleted successfully', { id: req.params.id });
         res.status(204).send({
           message: "Assignment was deleted successfully!"
         });
       } else {
+        logger.log('error', 'Error deleting assignment', { id: req.params.id });
         res.status(404).send({
           message: `Cannot delete Assignment with id=${id}. Maybe Assignment was not found!`
         });
@@ -95,6 +105,7 @@ const deleteAssignmentById = asyncHandler(async (req, res) => {
 });
 
 const updateAssignment = asyncHandler(async (req, res) => {
+  logger.log('info', 'Update assignment request received', { id: req.params.id, body: req.body });
   const id = req.params.id;
   const { name, points, num_of_attempts, deadline } = req.body;
 
@@ -121,16 +132,19 @@ const updateAssignment = asyncHandler(async (req, res) => {
   })
   .then(num => {
       if (num == 1) {
+          logger.log('info', 'Assignment updated successfully');
           res.status(204).send({
               message: "Assignment was updated successfully."
           });
       } else {
+        logger.log('error', 'Error updating assignment', { id: req.params.id });
           res.status(400).send({
               message: `Cannot update Assignment with id=${id}. Maybe Assignment was not found or req.body is empty!`
           });
       }
   })
   .catch(err => {
+      logger.log('error', 'Error updating Assignment', { id: req.params.id, error: err.message });
       res.status(500).send({
           message: "Error updating Assignment with id=" + id
       });
