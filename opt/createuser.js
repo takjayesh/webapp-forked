@@ -8,8 +8,8 @@ const Op = db.Sequelize.Op;
 const path = require('path');
 
 
-var input = fs.createReadStream(path.join(__dirname, "users.csv"));
-//var input = fs.createReadStream('/opt/users.csv');
+//var input = fs.createReadStream(path.join(__dirname, "users.csv"));
+var input = fs.createReadStream('/opt/users.csv');
 var parser = csv.parse({
     delimiter: ',',
     columns: true
