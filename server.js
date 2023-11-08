@@ -3,7 +3,6 @@ const errorHandler = require("./middleware/errorHandler");
 const dotenv = require("dotenv").config();
 const app = express();
 const db = require("./models");
-//const createUser = require("./opt/createuser");
 const authorization = require("./middleware/authorization");
 //const statsd = require('./statsd/statsd');
 
@@ -45,10 +44,8 @@ db.sequelize.sync({force:false})
 
 app.use(authorization)
 
-app.use("/api/users", require("./routes/userRoutes"));
 app.use("/", require("./routes/assignRoutes"));
-//app.use("/api/contacts", require("./routes/contactRoutes"));
-//app.use(errorHandler);
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

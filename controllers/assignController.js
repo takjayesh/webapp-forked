@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-
+const logger = require('../logger/logger');
 const db = require("../models");
 const Assignment = db.Assignment;
 const Op = db.Sequelize.Op;
