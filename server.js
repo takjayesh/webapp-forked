@@ -33,6 +33,10 @@ const port =  5000;
 app.use(express.json());
 app.use("/healthz", require("./routes/healthzRoutes"));
 
+
+app.use(express.json());
+app.use("/healthz", require("./routes/healthzRoutes"));
+
 db.sequelize.sync({force:false})
   .then(() => {
     console.log("Synced db.");
