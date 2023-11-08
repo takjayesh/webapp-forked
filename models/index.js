@@ -22,15 +22,16 @@ db.User.hasMany(db.Assignment);
 //Adding new code for database connection
 
 // Database check function
-db.databaseCheck = async function() {
-    try {
-        await sequelize.authenticate();
-        await sequelize.query(`CREATE DATABASE IF NOT EXISTS ${process.env.MYSQL_DATABASE}`);
-        console.log("Database ensured");
-    } catch (err) {
-        console.log(err);
-    }
-};
+
+// db.databaseCheck = async function() {
+//     try {
+//         await sequelize.authenticate();
+//         await sequelize.query(`CREATE DATABASE IF NOT EXISTS ${process.env.MYSQL_DATABASE}`);
+//         console.log("Database ensured");
+//     } catch (err) {
+//         console.log(err);
+//     }
+// };
 
 
 module.exports = db;
