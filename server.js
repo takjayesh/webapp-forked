@@ -17,6 +17,11 @@ app.use(async (req, res, next) => {
   }
 });
 
+//const port = process.env.PORT || 5000;
+const port =  5000;
+
+app.use(express.json());
+app.use("/healthz", require("./routes/healthzRoutes"));
 
 db.sequelize.sync({force:false})
   .then(() => {
@@ -25,12 +30,6 @@ db.sequelize.sync({force:false})
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
   });
-
-//const port = process.env.PORT || 5000;
-const port =  5000;
-
-app.use(express.json());
-app.use("/healthz", require("./routes/healthzRoutes"));
 
 app.use(authorization)
 
