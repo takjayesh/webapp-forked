@@ -30,10 +30,9 @@ db.databaseCheck = async function() {
 //const port = process.env.PORT || 5000;
 const port =  5000;
 
-
-
 app.use(express.json());
 app.use("/healthz", require("./routes/healthzRoutes"));
+
 
 db.sequelize.sync({force:false})
   .then(() => {
