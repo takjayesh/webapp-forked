@@ -17,8 +17,20 @@ const authorization = require("./middleware/authorization");
 //   }
 // });
 
+db.databaseCheck = async function() {
+  try {
+      await sequelize.authenticate();
+      await sequelize.query(`CREATE DATABASE IF NOT EXISTS ${process.env.MYSQL_DATABASE}`);
+      console.log("Database ensured");
+  } catch (err) {
+      console.log(err);
+  }
+};
+
 //const port = process.env.PORT || 5000;
 const port =  5000;
+
+
 
 app.use(express.json());
 app.use("/healthz", require("./routes/healthzRoutes"));
