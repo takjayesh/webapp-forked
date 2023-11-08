@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', asyncHandler(async (req, res) => {
     try {
         await db.sequelize.authenticate(); // Attempt to connect to the database
-        logger.log('info', 'Assignment created successfully');
+        logger.log('info', 'DB connection successfully');
         res.status(200).set('Cache-Control', 'no-cache, no-store, must-revalidate').send('Database connection successful');
     } catch (error) {
         console.error('Database connection error:', error);
