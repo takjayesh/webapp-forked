@@ -5,6 +5,7 @@ const app = express();
 const db = require("./models");
 //const createUser = require("./opt/createuser");
 const authorization = require("./middleware/authorization");
+//const statsd = require('./statsd/statsd');
 
 // Middleware to check the database connection
 // app.use(async (req, res, next) => {
