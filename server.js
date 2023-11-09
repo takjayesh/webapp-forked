@@ -4,7 +4,44 @@ const dotenv = require("dotenv").config();
 const app = express();
 const db = require("./models");
 const authorization = require("./middleware/authorization");
-//const statsd = require('./statsd/statsd');
+const statsd = require('./statsd/statsd');
+const port =  5000;
+
+app.use(getStatsD);
+
+db.databaseCheck = async function() {
+  try {
+      await sequelize.authenticate();
+      await sequelize.query(`CREATE DATABASE IF NOT EXISTS ${process.env.MYSQL_DATABASE}`);
+      console.log("Database ensured");
+  } catch (err) {
+      console.log(err);
+  }
+};
+
+app.use(express.json());
+app.use("/healthz", require("./routes/healthzRoutes"));
+
+db.sequelize.sync({force:false})
+  .then(() => {
+    console.log("Synced db.");
+  })
+  .catch((err) => {
+    console.log("Failed to sync db: " + err.message);
+  });
+
+app.use(authorization)
+app.use("/", require("./routes/assignRoutes"));
+
+//app.use(endStatsD);
+
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
+
+
+module.exports = app;
 
 // Middleware to check the database connection
 // app.use(async (req, res, next) => {
@@ -17,39 +54,4 @@ const authorization = require("./middleware/authorization");
 //   }
 // });
 
-db.databaseCheck = async function() {
-  try {
-      await sequelize.authenticate();
-      await sequelize.query(`CREATE DATABASE IF NOT EXISTS ${process.env.MYSQL_DATABASE}`);
-      console.log("Database ensured");
-  } catch (err) {
-      console.log(err);
-  }
-};
 
-//const port = process.env.PORT || 5000;
-const port =  5000;
-
-app.use(express.json());
-app.use("/healthz", require("./routes/healthzRoutes"));
-
-
-db.sequelize.sync({force:false})
-  .then(() => {
-    console.log("Synced db.");
-  })
-  .catch((err) => {
-    console.log("Failed to sync db: " + err.message);
-  });
-
-app.use(authorization)
-
-app.use("/", require("./routes/assignRoutes"));
-
-
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
-
-
-module.exports = app;

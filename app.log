@@ -6,3 +6,15 @@ info: This is an informational message. {"timestamp":"2023-11-08T22:32:05.706Z"}
 error: This is an error message. {"timestamp":"2023-11-08T22:32:05.710Z"}
 info: Get assignments request received {"timestamp":"2023-11-08T22:32:34.194Z"}
 info: Assignments retrieved successfully {"timestamp":"2023-11-08T22:32:34.198Z"}
+info: This is an informational message. {"timestamp":"2023-11-08T23:07:44.217Z"}
+error: This is an error message. {"timestamp":"2023-11-08T23:07:44.220Z"}
+info: Get assignments request received {"timestamp":"2023-11-08T23:17:54.055Z"}
+info: Assignments retrieved successfully {"timestamp":"2023-11-08T23:17:54.063Z"}
+info: Assignment created successfully {"timestamp":"2023-11-08T23:18:47.704Z"}
+info: This is an informational message. {"timestamp":"2023-11-09T01:01:02.594Z"}
+error: This is an error message. {"timestamp":"2023-11-09T01:01:02.597Z"}
+info: Assignment created successfully {"timestamp":"2023-11-09T01:04:40.077Z"}
+info: This is an informational message. {"timestamp":"2023-11-09T01:06:05.344Z"}
+error: This is an error message. {"timestamp":"2023-11-09T01:06:05.347Z"}
+info: Assignment created successfully {"timestamp":"2023-11-09T01:06:26.330Z"}
+info: Assignment created successfully {"timestamp":"2023-11-09T01:06:48.344Z"}
