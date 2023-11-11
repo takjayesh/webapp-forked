@@ -5,10 +5,11 @@ const app = express();
 const db = require("./models");
 const authorization = require("./middleware/authorization");
 //const createUser = require("./opt/createuser"); // Creating users from csv file
-const statsd = require('./statsd/statsd');
+//const statsd = require('./statsd/statsd');
+const { getStatsD, endStatsD } = require('./statsd/statsd');
 const port =  5000;
 
-//app.use(statsd.getStatsD);
+app.use(getStatsD);
 
 db.databaseCheck();
 
@@ -27,8 +28,7 @@ db.sequelize.sync({force:false})
 app.use(authorization)
 app.use("/", require("./routes/assignRoutes"));
 
-//app.use(endStatsD);
-
+app.use(endStatsD);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
