@@ -6,7 +6,6 @@ on:
 
 jobs:
   build-ami:
-    if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
     services:
       mysql:
