@@ -28,9 +28,10 @@ destination_path="/opt/"
  
 # Move the file if it exists
 [ -e "$source_path" ] && sudo cp "$source_path" "$destination_path" && echo "File 'users.csv' moved to '$destination_path'"
- 
+
 sudo mv /opt/csye6225/webapp/webapp.service /etc/systemd/system/webapp.service
 sudo mv /opt/csye6225/webapp/cloudwatch-config.json /opt/aws/amazon-cloudwatch-agent/etc/cloudwatch-config.json
+
 
 sudo chown -R csye6225:csye6225 /opt/csye6225/webapp/
 sudo chmod -R 750 /opt/csye6225/webapp/
