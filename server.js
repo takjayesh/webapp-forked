@@ -9,7 +9,7 @@ const authorization = require("./middleware/authorization");
 const { getStatsD, endStatsD } = require('./statsd/statsd');
 const port =  5000;
 
-app.use(getStatsD);
+app.use(getStatsD());
 
 db.databaseCheck();
 
@@ -28,7 +28,7 @@ db.sequelize.sync({force:false})
 app.use(authorization)
 app.use("/", require("./routes/assignRoutes"));
 
-app.use(endStatsD);
+app.use(endStatsD());
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
