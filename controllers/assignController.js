@@ -64,9 +64,10 @@ const getAssignmentsById = asyncHandler(async (req, res) => {
           where: {
               id : id  // Filter assignments by user ID
           }
-      });
-      if (!assignments) {
+      });   // Check this method
+      if (assignments.length===0) {
           res.status(404).json({ message: 'No assignments found for this user.' });
+          logger.log('info', 'Assignment not present with this ID');
           return;
       }
      // console.log(assignments);
