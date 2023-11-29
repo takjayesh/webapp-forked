@@ -1,8 +1,14 @@
 const asyncHandler = require("express-async-handler");
 const logger = require('../logger/logger');
 const db = require("../models");
+//const dotenv = require("dotenv").config();
+//process.env.MYSQL_DIALECT
+const publishToSNS = require('../models/notificationModel');
 const Assignment = db.Assignment;
+const Submission = db.UserSubmission;
 const Op = db.Sequelize.Op;
+const AWS = require('aws-sdk'); // AWS SDK for JavaScript
+//const sns = new AWS.SNS(); // Create SNS service object
 
 //@desc Register a user
 //@route POST /api/users/register
@@ -153,6 +159,71 @@ const updateAssignment = asyncHandler(async (req, res) => {
 });
 
 
+const submitAssignment = asyncHandler(async (req, res) => {
+    logger.log('info', 'Submit assignment request received');
+    const { submission_url } = req.body;
+    const assignmentId = req.params.id;
+    //const username = req.user.username; // Adjust this line based on how you store the authenticated user's information
+
+    const authHeader = req.headers['authorization'];
+    const token = authHeader.split(' ')[1];
+    const credentials = Buffer.from(token, 'base64').toString('utf-8');
+    const [username, password] = credentials.split(':');
+
+    // Validate the submission URL
+    if (!submission_url) {
+        return res.status(400).json({ msg: 'Invalid submission URL format. Please use the format "https://www.example.com"' });
+    }
+    if (!username) {
+        return res.status(400).json({ msg: 'Username is required' });
+    }
+
+    try {
+        const assignment = await Assignment.findOne({
+            where: { id: assignmentId }
+        });
+        if (!assignment) {
+            logger.log('error', 'Assignment not found');
+            return res.status(404).json({ msg: 'Assignment not found' });
+        }
+
+        // Check if the due date for the assignment has passed
+        if (new Date() > assignment.deadline) {
+            return res.status(400).json({ msg: 'Assignment deadline has passed. Submission rejected.' });
+        }
+
+        // Check if user has exceeded retries
+        const submissionCount = await Submission.count({
+            where: { assignment_id: assignmentId, username: username }
+        });
+        if (submissionCount >= 3) { // Assuming 3 is the retry limit
+            return res.status(400).json({ msg: 'Retry limit exceeded. Submission rejected.' });
+        }
+
+        const submission = await Submission.create({
+            assignment_id: assignmentId,
+            submission_url,
+            username
+        });
+
+        const message = {
+            url: submission_url,
+            userEmail: req.userEmail, // Adjust as per your context
+            assignmentId: assignmentId
+        };
+       
+        logger.log('info', 'Assignment submitted successfully');
+        await publishToSNS(process.env.TOPIC_ARN, message).promise();
+        res.status(201).json(submission);
+
+    } catch (error) {
+        logger.log('error', 'Error submitting assignment');
+        res.status(400).json({ message: error.message });
+    }
+});
+
+
+
 function isValidDeadlineFormat(deadline) {
   const deadlineRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/;
   return deadlineRegex.test(deadline);
@@ -160,4 +231,4 @@ function isValidDeadlineFormat(deadline) {
 
 
 
-module.exports = {createAssign ,getAssign, getAssignmentsById ,deleteAssignmentById,updateAssignment};
+module.exports = {createAssign ,getAssign, getAssignmentsById ,deleteAssignmentById,updateAssignment, submitAssignment};

@@ -11,6 +11,7 @@
   "author": "Jayesh Tak",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.1506.0",
     "bcrypt": "^5.1.0",
     "chai": "^4.3.10",
     "chai-http": "^4.3.0",

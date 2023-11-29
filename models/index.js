@@ -17,7 +17,10 @@ db.sequelize = sequelize;
 db.Assignment = require("./assignModel.js")(sequelize, Sequelize);
 db.User = require("./userModel.js")(sequelize, Sequelize);
 
+db.UserSubmission = require("./submissionModel.js")(sequelize, Sequelize);
+
 db.User.hasMany(db.Assignment);
+//db.Assignment.hasMany(db.UserSubmission);
 
 db.databaseCheck = async function() {
   try {
