@@ -1,8 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const logger = require('../logger/logger');
 const db = require("../models");
-//const dotenv = require("dotenv").config();
-//process.env.MYSQL_DIALECT
 const publishToSNS = require('../models/notificationModel');
 const Assignment = db.Assignment;
 const Submission = db.UserSubmission;
@@ -213,7 +211,7 @@ const submitAssignment = asyncHandler(async (req, res) => {
         };
        
         logger.log('info', 'Assignment submitted successfully');
-        await publishToSNS(process.env.TOPIC_ARN, message).promise();
+        await publishToSNS.publishToSNS(process.env.TOPIC_ARN, message).promise();
         res.status(201).json(submission);
 
     } catch (error) {
