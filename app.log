@@ -87,4 +87,7 @@ error: Assignment not found {"timestamp":"2023-11-29T22:09:50.558Z"}
 info: Assignment created successfully {"timestamp":"2023-11-29T22:10:46.334Z"}
 info: Submit assignment request received {"timestamp":"2023-11-29T22:11:13.182Z"}
 info: Assignment submitted successfully {"timestamp":"2023-11-29T22:11:13.232Z"}
-error: Error submitting assignment {"timestamp":"2023-11-29T22:11:13.234Z"}
+error: Error submitting assignment {"timestamp":"2023-11-29T22:11:13.234Z"}info: This is an informational message. {"timestamp":"2023-12-02T22:50:44.875Z"}
+error: This is an error message. {"timestamp":"2023-12-02T22:50:44.878Z"}
+info: This is an informational message. {"timestamp":"2023-12-02T22:51:03.829Z"}
+error: This is an error message. {"timestamp":"2023-12-02T22:51:03.832Z"}
