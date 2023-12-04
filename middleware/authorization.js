@@ -39,7 +39,9 @@ const authorization = asyncHandler(async (req, res, next) => {
         // return username;
         //return user.id;
         // res.json({ token: base64Token });
+
         req.userId = user.id;
+        req.userName = user.username; // added new line
         next();
     } catch (error) {
         console.error('Authentication error:', error);
