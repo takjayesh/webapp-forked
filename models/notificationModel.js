@@ -16,7 +16,7 @@ const sns = new AWS.SNS();
 
 const publishToSNS = (topicArn, message, callback) => {
   const params = {
-    Message: message,
+    Message: JSON.stringify(message),
     TopicArn: topicArn,
   };
   console.log(process.env.TOPIC_ARN+"p3");
