@@ -216,7 +216,7 @@ const submitAssignment = asyncHandler(async (req, res) => {
 
     } catch (error) {
         logger.log('error', 'Error submitting assignment');
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ message: error.message + "catchError submitting assignment" });
     }
 });
 
