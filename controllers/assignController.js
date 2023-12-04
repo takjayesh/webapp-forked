@@ -7,6 +7,8 @@ const Submission = db.UserSubmission;
 const Op = db.Sequelize.Op;
 const dotenv = require("dotenv").config();
 const AWS = require('aws-sdk'); // AWS SDK for JavaScript
+
+
 //const sns = new AWS.SNS(); // Create SNS service object
 
 //@desc Register a user
@@ -213,7 +215,7 @@ const submitAssignment = asyncHandler(async (req, res) => {
        
         logger.log('info', 'Assignment submitted successfully');
         
-        publishToSNS(process.env.TOPIC_ARN, message, (err, data) => {
+        publishToSNS.publishToSNS(process.env.TOPIC_ARN, message, (err, data) => {
             if (err) {
               // Handle error
               res.status(500).json({ error: 'Failed to send notification' });
