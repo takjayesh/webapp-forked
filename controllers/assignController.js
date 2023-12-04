@@ -164,12 +164,7 @@ const submitAssignment = asyncHandler(async (req, res) => {
     logger.log('info', 'Submit assignment request received');
     const { submission_url } = req.body;
     const assignmentId = req.params.id;
-    //const username = req.user.username; // Adjust this line based on how you store the authenticated user's information
-
-    const authHeader = req.headers['authorization'];
-    const token = authHeader.split(' ')[1];
-    const credentials = Buffer.from(token, 'base64').toString('utf-8');
-    const [username, password] = credentials.split(':');
+    const username = req.userName; // Adjust this line based on how you store the authenticated user's information
 
     // Validate the submission URL
     if (!submission_url) {
@@ -207,16 +202,16 @@ const submitAssignment = asyncHandler(async (req, res) => {
             username
         });
 
-        // const message = {
-        //     url: submission_url,
-        //     userEmail: req.userEmail, // Adjust as per your context
-        //     assignmentId: assignmentId
-        // };
-        const message = "heyyyyy";
+        const message = {
+            url: submission_url,
+            userEmail: username, // Adjust as per your context
+            assignmentId: assignmentId
+        };
        
         logger.log('info', 'Assignment submitted successfully');
-        
 
+        console.log(message);
+        
         publishToSNS.publishToSNS(process.env.TOPIC_ARN, message, (err, data) => {
             if (err) {
                 console.log(process.env.TOPIC_ARN+ "p1");
