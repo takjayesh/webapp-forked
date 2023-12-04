@@ -215,6 +215,7 @@ const submitAssignment = asyncHandler(async (req, res) => {
        
         logger.log('info', 'Assignment submitted successfully');
         
+
         publishToSNS.publishToSNS(process.env.TOPIC_ARN, message, (err, data) => {
             if (err) {
               // Handle error
