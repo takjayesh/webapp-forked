@@ -28,7 +28,7 @@ db.databaseCheck = async function() {
       await sequelize.query(`CREATE DATABASE IF NOT EXISTS ${process.env.MYSQL_DATABASE}`);
       console.log("Database ensured");
   } catch (err) {
-     console.error('Unable to ensure the database:', error);
+     console.error('Unable to ensure the database:', err);
      res.status(500).send('Error ensuring the database.');
   }
 };

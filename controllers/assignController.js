@@ -5,6 +5,7 @@ const publishToSNS = require('../models/notificationModel');
 const Assignment = db.Assignment;
 const Submission = db.UserSubmission;
 const Op = db.Sequelize.Op;
+const dotenv = require("dotenv").config();
 const AWS = require('aws-sdk'); // AWS SDK for JavaScript
 //const sns = new AWS.SNS(); // Create SNS service object
 
@@ -211,8 +212,18 @@ const submitAssignment = asyncHandler(async (req, res) => {
         };
        
         logger.log('info', 'Assignment submitted successfully');
-        await publishToSNS.publishToSNS(process.env.TOPIC_ARN, message).promise();
-        res.status(201).json(submission);
+        
+        publishToSNS(process.env.TOPIC_ARN, message, (err, data) => {
+            if (err) {
+              // Handle error
+              res.status(500).json({ error: 'Failed to send notification' });
+            } else {
+                res.status(201).json(submission);
+            }
+          });
+              
+        //await publishToSNS.publishToSNS(process.env.TOPIC_ARN, message).promise();
+        //res.status(201).json(submission);
 
     } catch (error) {
         logger.log('error', 'Error submitting assignment');
