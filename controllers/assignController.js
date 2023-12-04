@@ -207,19 +207,23 @@ const submitAssignment = asyncHandler(async (req, res) => {
             username
         });
 
-        const message = {
-            url: submission_url,
-            userEmail: req.userEmail, // Adjust as per your context
-            assignmentId: assignmentId
-        };
+        // const message = {
+        //     url: submission_url,
+        //     userEmail: req.userEmail, // Adjust as per your context
+        //     assignmentId: assignmentId
+        // };
+        const message = "heyyyyy";
        
         logger.log('info', 'Assignment submitted successfully');
         
         publishToSNS.publishToSNS(process.env.TOPIC_ARN, message, (err, data) => {
             if (err) {
+                console.log(process.env.TOPIC_ARN+ "p1");
               // Handle error
-              res.status(500).json({ error: 'Failed to send notification' });
+                res.status(500).json({ error: 'Failed to send notification' });
             } else {
+                console.log(process.env.TOPIC_ARN+ "p2");
+
                 res.status(201).json(submission);
             }
           });

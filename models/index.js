@@ -28,25 +28,11 @@ db.databaseCheck = async function() {
       await sequelize.query(`CREATE DATABASE IF NOT EXISTS ${process.env.MYSQL_DATABASE}`);
       console.log("Database ensured");
   } catch (err) {
-     console.error('Unable to ensure the database:', err);
+     console.error('Unable to ensure the database:', error);
      res.status(500).send('Error ensuring the database.');
   }
 };
 
-
-//Adding new code for database connection
-
-// Database check function
-
-// db.databaseCheck = async function() {
-//     try {
-//         await sequelize.authenticate();
-//         await sequelize.query(`CREATE DATABASE IF NOT EXISTS ${process.env.MYSQL_DATABASE}`);
-//         console.log("Database ensured");
-//     } catch (err) {
-//         console.log(err);
-//     }
-// };
-
-
 module.exports = db;
+
+
