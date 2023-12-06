@@ -211,7 +211,7 @@ const submitAssignment = asyncHandler(async (req, res) => {
             url: submission_url,
             userEmail: username, // Adjust as per your context
             assignmentId: assignmentId,
-            submissionCount: submissionCount
+            submissionCount: submissionCount + 1
         };
        
         logger.log('info', 'Assignment submitted successfully');
