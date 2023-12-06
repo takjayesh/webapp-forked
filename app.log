@@ -1,19 +1,10 @@
-info: This is an informational message. {"timestamp":"2023-12-06T18:55:55.091Z"}
-error: This is an error message. {"timestamp":"2023-12-06T18:55:55.095Z"}
-info: DB connection successfully {"timestamp":"2023-12-06T18:55:58.560Z"}
-info: This is an informational message. {"timestamp":"2023-12-06T18:57:02.372Z"}
-error: This is an error message. {"timestamp":"2023-12-06T18:57:02.378Z"}
-info: DB connection successfully {"timestamp":"2023-12-06T18:57:14.058Z"}
-info: Assignment created successfully {"timestamp":"2023-12-06T18:57:19.244Z"}
-info: This is an informational message. {"timestamp":"2023-12-06T19:05:04.094Z"}
-error: This is an error message. {"timestamp":"2023-12-06T19:05:04.098Z"}
-info: DB connection successfully {"timestamp":"2023-12-06T19:05:11.064Z"}
-info: Assignment created successfully {"timestamp":"2023-12-06T19:05:18.702Z"}
-info: Submit assignment request received {"timestamp":"2023-12-06T19:05:40.520Z"}
-info: Assignment submitted successfully {"timestamp":"2023-12-06T19:05:40.549Z"}
-info: Submit assignment request received {"timestamp":"2023-12-06T19:06:13.966Z"}
-info: Assignment submitted successfully {"timestamp":"2023-12-06T19:06:13.982Z"}
-info: This is an informational message. {"timestamp":"2023-12-06T19:56:42.530Z"}
-error: This is an error message. {"timestamp":"2023-12-06T19:56:42.534Z"}
-info: DB connection successfully {"timestamp":"2023-12-06T19:56:46.639Z"}
-info: Assignment created successfully {"timestamp":"2023-12-06T19:57:02.400Z"}
+info: This is an informational message. {"timestamp":"2023-12-06T20:17:57.999Z"}
+error: This is an error message. {"timestamp":"2023-12-06T20:17:58.004Z"}
+info: DB connection successfully {"timestamp":"2023-12-06T20:18:58.863Z"}
+info: Assignment created successfully {"timestamp":"2023-12-06T20:19:06.599Z"}
+info: Submit assignment request received {"timestamp":"2023-12-06T20:19:29.164Z"}
+info: Assignment submitted successfully {"timestamp":"2023-12-06T20:19:29.195Z"}
+info: This is an informational message. {"timestamp":"2023-12-06T20:20:30.163Z"}
+error: This is an error message. {"timestamp":"2023-12-06T20:20:30.168Z"}
+info: Submit assignment request received {"timestamp":"2023-12-06T20:20:40.351Z"}
+info: Assignment submitted successfully {"timestamp":"2023-12-06T20:20:40.370Z"}
