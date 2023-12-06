@@ -16,4 +16,11 @@ router.put("/v1/assignments/:id", updateAssignment);
 
 router.post("/v1/assignments/:id/submission", submitAssignment);
 
+// Catch-all route for any other path
+router.all("*", (req, res) => {
+    res.status(404).json({
+      error: "Path not found"
+    });
+  });
+
 module.exports = router;

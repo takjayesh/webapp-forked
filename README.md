@@ -24,6 +24,6 @@ Node.js
 Express.js
 Contact me:
 
-If you a have any questions or want to contribute to this project, please feel free to reach out to us at  tak.j@northeastern.edu  
+If you a havee any questions or want to contribute to this project, please feel free to reach out to us at  tak.j@northeastern.edu  
 
 tak.j@northeastern.edu  
