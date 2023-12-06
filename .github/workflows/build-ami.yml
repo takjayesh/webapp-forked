@@ -83,7 +83,8 @@ jobs:
     - name: Build Application
       id: Build_Application
       run: |
-              AMI_ID=$(packer build -machine-readable --var-file=packer/webapp.pkrvars.hcl packer/aws-debian.pkr.hcl | tee /dev/stderr | awk -F, '$0 ~/artifact,0,id/ {print $6}')
+              AMI_ID=$(packer build -machine-readable packer/aws-debian.pkr.hcl | awk -F, '$0 ~/artifact,0,id/ {print $6}')
+              echo "AMI ID: $AMI_ID"
               echo "AMI_ID=${AMI_ID}" >> $GITHUB_ENV
 
 
