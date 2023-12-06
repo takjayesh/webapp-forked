@@ -9,11 +9,6 @@ const dotenv = require("dotenv").config();
 const AWS = require('aws-sdk'); // AWS SDK for JavaScript
 
 
-//const sns = new AWS.SNS(); // Create SNS service object
-
-//@desc Register a user
-//@route POST /api/users/register
-//@access public
 const createAssign = asyncHandler(async (req, res) => {
   const { name, points, num_of_attempts, deadline } = req.body;
 
@@ -183,6 +178,8 @@ const submitAssignment = asyncHandler(async (req, res) => {
             return res.status(404).json({ msg: 'Assignment not found' });
         }
 
+        
+
         // Check if the due date for the assignment has passed
         if (new Date() > assignment.deadline) {
             return res.status(400).json({ msg: 'Assignment deadline has passed. Submission rejected.' });
@@ -192,9 +189,17 @@ const submitAssignment = asyncHandler(async (req, res) => {
         const submissionCount = await Submission.count({
             where: { assignment_id: assignmentId, username: username }
         });
-        if (submissionCount >= 3) { // Assuming 3 is the retry limit
-            return res.status(400).json({ msg: 'Retry limit exceeded. Submission rejected.' });
+
+        if(assignment.num_of_attempts < submissionCount ){
+            return res.status(400).json({ msg: 'Num_limits exceeded. Submission rejected.' });
         }
+
+        console.log(submissionCount);
+        console.log(assignment.num_of_attempts);
+
+        // if (submissionCount >= 3) { // Assuming 3 is the retry limit
+        //     return res.status(400).json({ msg: 'Retry limit exceeded. Submission rejected.' });
+        // }
 
         const submission = await Submission.create({
             assignment_id: assignmentId,
@@ -205,7 +210,8 @@ const submitAssignment = asyncHandler(async (req, res) => {
         const message = {
             url: submission_url,
             userEmail: username, // Adjust as per your context
-            assignmentId: assignmentId
+            assignmentId: assignmentId,
+            submissionCount: submissionCount
         };
        
         logger.log('info', 'Assignment submitted successfully');
@@ -223,9 +229,6 @@ const submitAssignment = asyncHandler(async (req, res) => {
                 res.status(201).json(submission);
             }
           });
-              
-        //await publishToSNS.publishToSNS(process.env.TOPIC_ARN, message).promise();
-        //res.status(201).json(submission);
 
     } catch (error) {
         logger.log('error', 'Error submitting assignment');
