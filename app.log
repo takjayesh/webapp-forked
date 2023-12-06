@@ -13,3 +13,7 @@ info: Submit assignment request received {"timestamp":"2023-12-06T19:05:40.520Z"
 info: Assignment submitted successfully {"timestamp":"2023-12-06T19:05:40.549Z"}
 info: Submit assignment request received {"timestamp":"2023-12-06T19:06:13.966Z"}
 info: Assignment submitted successfully {"timestamp":"2023-12-06T19:06:13.982Z"}
+info: This is an informational message. {"timestamp":"2023-12-06T19:56:42.530Z"}
+error: This is an error message. {"timestamp":"2023-12-06T19:56:42.534Z"}
+info: DB connection successfully {"timestamp":"2023-12-06T19:56:46.639Z"}
+info: Assignment created successfully {"timestamp":"2023-12-06T19:57:02.400Z"}
