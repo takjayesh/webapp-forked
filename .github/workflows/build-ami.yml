@@ -75,17 +75,21 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_EC2 }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_EC2 }}
-      run: packer build ./packer/aws-debian.pkr.hcl
+      run: |
+            AMI_ID=$(packer build -machine-readable ./packer/aws-debian.pkr.hcl | awk -F, '$0 ~/artifact,0,id/ {print $6}')
+            echo "AMI ID: $AMI_ID"
+            echo "AMI_ID=${AMI_ID}" >> $GITHUB_ENV
+        # packer build ./packer/aws-debian.pkr.hcl
 
 ########################################################################
 
 
-    - name: Build Application
-      id: Build_Application
-      run: |
-              AMI_ID=$(packer build -machine-readable packer/aws-debian.pkr.hcl | awk -F, '$0 ~/artifact,0,id/ {print $6}')
-              echo "AMI ID: $AMI_ID"
-              echo "AMI_ID=${AMI_ID}" >> $GITHUB_ENV
+    # - name: Build Application
+    #   id: Build_Application
+    #   run: |
+    #           AMI_ID=$(packer build -machine-readable packer/aws-debian.pkr.hcl | awk -F, '$0 ~/artifact,0,id/ {print $6}')
+    #           echo "AMI ID: $AMI_ID"
+    #           echo "AMI_ID=${AMI_ID}" >> $GITHUB_ENV
 
 
     - name: Created AMI
