@@ -4,16 +4,16 @@ const { authorization } = require("../middleware/authorization");
 
 const router = express.Router();
 
-router.post("/v2/assignments", createAssign);
+router.post("/v1/assignments", createAssign);
 
-router.get("/v2/assignments", getAssign);
+router.get("/v1/assignments", getAssign);
 
-router.get("/v2/assignments/:id", getAssignmentsById);
+router.get("/v1/assignments/:id", getAssignmentsById);
 
-router.delete("/v2/assignments/:id", deleteAssignmentById);
+router.delete("/v1/assignments/:id", deleteAssignmentById);
 
-router.put("/v2/assignments/:id", updateAssignment);
+router.put("/v1/assignments/:id", updateAssignment);
 
-router.post("/v2/assignments/:id/submission", submitAssignment);
+router.post("/v1/assignments/:id/submission", submitAssignment);
 
 module.exports = router;
