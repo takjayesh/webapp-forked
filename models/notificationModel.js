@@ -8,8 +8,8 @@ const AWS = require('aws-sdk');
 
 AWS.config.update({
   region: "us-east-1",
-  accessKeyId: "AKIAQWRXHVBYE4IIWZ6D",
-  secretAccessKey: "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"
+  accessKeyId: "",
+  secretAccessKey: ""
 });
 
 const sns = new AWS.SNS();
